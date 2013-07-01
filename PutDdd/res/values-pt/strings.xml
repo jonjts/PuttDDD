@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Put ddd</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="operadora" >Operadora</string>
+    <string name="codigo">Codigo</string>
+    <string name="salvar">Salvar</string>
+    <string name = "remover"> Remover Operadora</string>
+    <string name = "cancelar"> Cancelar</string>
+    <string name = "adicionar"> Adicionar Operadora</string>
+    <string name="confirmarRemove"> Você tem certeza?</string>
+    <string name= "removido">Removido</string>
+    <string name="sim"> Manda ver</string>
+    <string name="nadaRemover">Nada para remover</string>
+    <string name="seuCodigoArea">Minha área</string>
+    <string name="exemCodogoArea">79, 11...</string>
+    <string name="realizadoSucess">Operação realizada com sucesso</string>
+    <string name="seuCdAreaE"> Minha área :\t</string>
+    <string name="codigoInvalido">Codigo não valido!</string>
+
+</resources>
