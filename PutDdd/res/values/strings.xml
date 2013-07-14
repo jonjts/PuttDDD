@@ -19,5 +19,6 @@
     <string name="realizadoSucess">Operation realised with sucess</string>
     <string name="seuCdAreaE"> Your Area Code is\t</string>
     <string name="codigoInvalido">Code Not Valid!</string>
+    <string name="tratarNonoDigito">Dealing with ninth digit numbers</string>
 
 </resources>

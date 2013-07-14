@@ -22,7 +22,7 @@ public class OperadoraDAO {
 	    		"[ope_codigo] [TEXT(10)] NOT NULL, [ope_nome] [TEXT(30)] NOT NULL) ";
 	 
 	    public static final String SCRIPT_DELECAO_TABELA =  "DROP TABLE IF EXISTS " + NOME_TABELA;
-	    public static final String[] ss = new String[]{"INSERT INTO operadora (ope_nome, ope_codigo)VALUES ('Tim','049')",
+	    public static final String[] ss = new String[]{"INSERT INTO operadora (ope_nome, ope_codigo)VALUES ('Tim','041')",
 	    												"INSERT INTO operadora (ope_nome, ope_codigo)VALUES ('Vivo','015')",
 	    												"INSERT INTO operadora (ope_nome, ope_codigo)VALUES ('Claro','021')",
 	    												"INSERT INTO operadora (ope_nome, ope_codigo)VALUES ('Oi','031')"};

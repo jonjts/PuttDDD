@@ -19,5 +19,6 @@
     <string name="realizadoSucess">Operação realizada com sucesso</string>
     <string name="seuCdAreaE"> Minha área :\t</string>
     <string name="codigoInvalido">Codigo não valido!</string>
+    <string name="tratarNonoDigito">Tratar numeros com nono digito</string>
 
 </resources>

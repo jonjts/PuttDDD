@@ -1,6 +1,5 @@
 package br.com.jonjts.putddd;
 
-
 import br.com.jonjts.putddd.dao.OperadoraDAO;
 import br.com.jonjts.putddd.model.Operadora;
 import br.com.jonjts.putddd.model.OperadoraAdapter;
@@ -46,9 +45,7 @@ public class MainActivity extends SherlockActivity {
 	private TextView txvCodigoArea;
 	private OperadoraDAO operadoraDAO;
 	private SharedPreferences prefs;
-	private boolean salvar = false;
 	
-
 	public static int ADD_OPERADORA = 1;
 	public static int REMOVE_OPERADORA = 2;
 	public static int ADD_CODIGO_AREA = 3;
@@ -56,47 +53,45 @@ public class MainActivity extends SherlockActivity {
 	public static String ON_OFF = "on_off";
 	public static String ID_OPERADORA = "id_ope";
 	public static String CODIGO_OPERADORA = "codigo_op";
-	
+
 	private Animation animation;
-	
-	ActionBarSherlock mSherlock = ActionBarSherlock.wrap(this);
-	
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		try{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		prefs = this.getSharedPreferences("myPrefs", 
-                Context.MODE_PRIVATE);
-		
+
+		prefs = this.getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+
 		animation = AnimationUtils.loadAnimation(this, R.anim.fade);
-		
-		if(prefs.getString(AddCodigoArea.CODIGO_AREA, "00").equals("00")){
+
+		if (prefs.getString(AddCodigoArea.CODIGO_AREA, "00").equals("00")) {
 			fixAreaCode();
 		}
-		
-    	
+
 		spnOperadoras = (IcsSpinner) findViewById(R.id.spnOperadoras);
 		tglOnOff = (ToggleButton) findViewById(R.id.tbgOnOff);
 		txvCodigoArea = (TextView) findViewById(R.id.txtCodigoArea);
 		txvCodigoArea.startAnimation(animation);
 		spnOperadoras.startAnimation(animation);
-		
-		
-		operadoraDAO = OperadoraDAO.getInstance(getApplicationContext());
-		Log.i("Banco", "Banco criado");
 
-		OperadoraAdapter adapter = new OperadoraAdapter(this,
-				operadoraDAO.getAll());
-		spnOperadoras.setAdapter(adapter);
+		try {
+			operadoraDAO = OperadoraDAO.getInstance(getApplicationContext());
+			Log.i("Banco", "Banco criado");
 
-		Long id = getPreferences(MODE_PRIVATE).getLong(ID_OPERADORA, 0);
-		try{
-			txvCodigoArea.setText(prefs.getString(AddCodigoArea.CODIGO_AREA, "00"));
-		spnOperadoras.setSelection(adapter.getPosision(id));
-		}catch(Exception e){
-			
+			OperadoraAdapter adapter = new OperadoraAdapter(this,
+					operadoraDAO.getAll());
+			spnOperadoras.setAdapter(adapter);
+
+			Long id = getPreferences(MODE_PRIVATE).getLong(ID_OPERADORA, 0);
+
+			txvCodigoArea.setText(prefs.getString(AddCodigoArea.CODIGO_AREA,
+					"00"));
+			spnOperadoras.setSelection(adapter.getPosision(id));
+		} catch (Exception e) {
+
 		}
 
 		tglOnOff.setOnCheckedChangeListener(new ToggleButton.OnCheckedChangeListener() {
@@ -115,37 +110,48 @@ public class MainActivity extends SherlockActivity {
 			@Override
 			public void onItemSelected(IcsAdapterView<?> parent, View view,
 					int position, long id) {
-				Operadora operadora = ((Operadora) spnOperadoras
-						.getAdapter().getItem(position));
+				Operadora operadora = ((Operadora) spnOperadoras.getAdapter()
+						.getItem(position));
 
-				getPreferences(MODE_PRIVATE).edit().putLong(ID_OPERADORA, id).commit();
-				prefs.edit().putString(CODIGO_OPERADORA, operadora.getCodigo()).commit();
-				
+				getPreferences(MODE_PRIVATE).edit().putLong(ID_OPERADORA, id)
+						.commit();
+				prefs.edit().putString(CODIGO_OPERADORA, operadora.getCodigo())
+						.commit();
+
 			}
 
 			@Override
 			public void onNothingSelected(IcsAdapterView<?> parent) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
-		
-			}
+		}catch(Exception e){
+			
+		}
+
+	}
 
 	private void fixAreaCode() {
+		try{
 		final TelephonyManager telephony = (TelephonyManager) getSystemService(this.TELEPHONY_SERVICE);
 		if (telephony.getPhoneType() == TelephonyManager.PHONE_TYPE_GSM) {
-		    final GsmCellLocation location = (GsmCellLocation) telephony.getCellLocation();
-		    if (location != null) {
-		    	String string = String.valueOf(location.getLac());
-		    	String novo = string.substring(string.length()-2,string.length()); 
-		    	prefs.edit().putString(AddCodigoArea.CODIGO_AREA, novo).commit();
-		    	txvCodigoArea.setText(novo);
-		        
-		    }
+			final GsmCellLocation location = (GsmCellLocation) telephony
+					.getCellLocation();
+			if (location != null) {
+				String string = String.valueOf(location.getLac());
+				String novo = string.substring(string.length() - 2,
+						string.length()-1);
+				prefs.edit().putString(AddCodigoArea.CODIGO_AREA, novo)
+						.commit();
+				txvCodigoArea.setText(novo);
+
+			}
 		}
-		
-		
+		}catch(Exception e){
+			Log.e("Codigo de area", e.getMessage());
+		}
+
 	}
 
 	@Override
@@ -163,8 +169,9 @@ public class MainActivity extends SherlockActivity {
 						operadoraDAO.getAll());
 				spnOperadoras.setAdapter(adapter);
 			}
-		}else if(requestCode == ADD_CODIGO_AREA){
-			txvCodigoArea.setText(prefs.getString(AddCodigoArea.CODIGO_AREA, "00"));
+		} else if (requestCode == ADD_CODIGO_AREA) {
+			txvCodigoArea.setText(prefs.getString(AddCodigoArea.CODIGO_AREA,
+					"00"));
 			txvCodigoArea.startAnimation(animation);
 		}
 	}
@@ -196,7 +203,8 @@ public class MainActivity extends SherlockActivity {
 					REMOVE_OPERADORA);
 			break;
 		case 3:
-			startActivityForResult(new Intent(this,AddCodigoArea.class), ADD_CODIGO_AREA);
+			startActivityForResult(new Intent(this, AddCodigoArea.class),
+					ADD_CODIGO_AREA);
 			break;
 		}
 		return true;

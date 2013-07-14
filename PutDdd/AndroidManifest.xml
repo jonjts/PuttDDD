@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.jonjts.putddd"
     android:installLocation="internalOnly"
-    android:versionCode="1"
-    android:versionName="1.2" >
+    android:versionCode="3"
+    android:versionName="1.4" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -43,13 +43,7 @@
             android:theme="@style/Theme.Sherlock.Dialog" >
         </activity>
 
-        <service
-            android:name=".Outgoing.CallDetectService"
-            android:enabled="true"
-            android:exported="false" >
-        </service>
-
-        <receiver android:name=".Outgoing.OutgoingReceiver" >
+        <receiver android:name="br.com.jonjts.putddd.outgoing.OutgoingReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
 

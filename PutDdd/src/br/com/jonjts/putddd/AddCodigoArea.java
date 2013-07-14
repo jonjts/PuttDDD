@@ -36,7 +36,7 @@ public class AddCodigoArea extends SherlockActivity {
 			@Override
 			public void onClick(View v) {
 				String cod = edtCodigoArea.getText().toString();
-				if(!cod.isEmpty()){
+				if(!cod.trim().equals("")){
 					prefs.edit().putString(CODIGO_AREA, cod).commit();
 					setResult(RESULT_OK);
 					Toast.makeText(getApplicationContext(), R.string.realizadoSucess, Toast.LENGTH_LONG).show();
